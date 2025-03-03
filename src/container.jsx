@@ -3,8 +3,8 @@ function Container() {
         <div className="container">
             <h1>Class Popularity Pool v3</h1>
             <div className="inside-container">
-                <input type="text" placeholder=" Enter Name: Use nickname for privacy" /><br />
-                <select class="select-box" name="username" id="username" required>
+                <input type="text" placeholder=" Enter Name: Use nickname for privacy" />
+                <select className="select-box" name="username" id="username" required>
                     <option value="Choose" selected>Choose</option>
                     <option value="Aayush Giri">Aayush Giri</option>
                     <option value="Aayusha Shresthacharya Baniya">Aayusha Shresthacharya Baniya</option>
