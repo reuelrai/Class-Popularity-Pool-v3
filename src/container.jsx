@@ -11,6 +11,7 @@ function Container() {
     const [username, setUsername] = useState("");
     const [vote, setVote] = useState("");
     const [message, setMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false); // Prevent multiple submits
 
     const handleSubmit = async (e) => {
         e.preventDefault();
