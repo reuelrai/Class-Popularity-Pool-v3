@@ -1,11 +1,58 @@
+import { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+// Replace with your actual Supabase credentials
+const SUPABASE_URL = "https://tzlmoubkdqjmcmrhgrru.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6bG1vdWJrZHFqbWNtcmhncnJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMTc2ODIsImV4cCI6MjA1NjU5MzY4Mn0.1kjHXOCST0rJl8O0PBuVUqi1BiIejyjocTScCxgD4RM";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 function Container() {
+    const [username, setUsername] = useState("");
+    const [vote, setVote] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!username || vote === "Choose" || !message) {
+            alert("Please fill out all fields.");
+            return;
+        }
+
+        const { data, error } = await supabase.from("Votes").insert([
+            { username, vote, message }
+        ]);
+
+        if (error) {
+            console.error("Error inserting data:", error);
+            alert("Failed to submit. Try again.");
+        } else {
+            alert("Vote submitted successfully!");
+            setUsername("");
+            setVote("Choose");
+            setMessage("");
+        }
+    };
+
     return (
         <div className="container">
             <h1>Class Popularity Pool v3</h1>
-            <div className="inside-container">
-                <input type="text" placeholder=" Enter Name: Use nickname for privacy" />
-                <select className="select-box" name="username" id="username" required>
-                    <option value="Choose" selected>Choose</option>
+            <form className="inside-container" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Enter your name (or nickname for privacy)"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <select
+                    className="select-box"
+                    value={vote}
+                    onChange={(e) => setVote(e.target.value)}
+                    required
+                >
+                    <option value="Choose">Choose</option>
                     <option value="Aayush Giri">Aayush Giri</option>
                     <option value="Aayusha Shresthacharya Baniya">Aayusha Shresthacharya Baniya</option>
                     <option value="Asmita Silwal">Asmita Silwal</option>
@@ -30,12 +77,15 @@ function Container() {
                     <option value="Sudip Bhandari">Sudip Bhandari</option>
                     <option value="Umanga Magar">Umanga Magar</option>
                 </select>
-                <textarea name="textArea" id="textArea" placeholder="Leave a message here"></textarea>
-                <button>Submit</button>
-            </div>
-
+                <textarea
+                    placeholder="Leave a message here"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                ></textarea>
+                <button type="submit">Submit</button>
+            </form>
         </div>
-
     );
 }
 
