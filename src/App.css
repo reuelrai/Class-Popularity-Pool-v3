@@ -93,8 +93,9 @@ button:hover {
   font-weight: bold;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) {;
   .container {
+    width: 90%;
     padding: 15px;
   }
 
@@ -114,6 +115,7 @@ button:hover {
 
 @media (max-width: 480px) {
   .container {
+    width: 95%;
     padding: 10px;
   }
 
