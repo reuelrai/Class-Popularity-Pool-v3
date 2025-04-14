@@ -27,7 +27,7 @@ function Container() {
 
         if (error) {
             console.error("Error inserting data:", error);
-            alert("Failed to submit. Try again.");
+            alert("Failed to submit as database has been disabled at the moment. Thank you.");
         } else {
             alert("Vote submitted successfully!");
             setUsername("");
